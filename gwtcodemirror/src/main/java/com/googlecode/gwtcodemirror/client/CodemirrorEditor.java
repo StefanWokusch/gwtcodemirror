@@ -28,18 +28,6 @@ public class CodemirrorEditor extends Composite {
 		cm = initCodemirror(area.getElement());
 		assert (cm != null) : "CodeMirror editor is null";
 
-		// Button submit = new Button("Submit", new ClickHandler() {
-		// @Override
-		// public void onClick(ClickEvent event) {
-		// submit();
-		// }
-		// });
-		//
-		// widget.add(submit);
-		// widget.setWidgetBottomHeight(submit, 2, Unit.PX, 25, Unit.PX);
-		// widget.setWidgetLeftRight(submit, 2, Unit.PX, 2, Unit.PX);
-		// initWidget(widget);
-
 		initWidget(widget);
 		addDomHandler(new KeyDownHandler() {
 			@Override
@@ -90,6 +78,10 @@ public class CodemirrorEditor extends Composite {
 		cm.refresh();
 	}-*/;
 
+	private native void focus(JavaScriptObject cm) /*-{
+		cm.focus();
+	}-*/;
+
 	private native void setValue(JavaScriptObject cm, String value) /*-{
 		cm.setValue(value);
 	}-*/;
@@ -120,6 +112,10 @@ public class CodemirrorEditor extends Composite {
 		this.enabled = enabled;
 	}
 
+	public void focus() {
+		focus(cm);
+	}
+
 	public void submit() {
 		for (SubmitListener l : listeners)
 			l.onSubmit();
@@ -128,5 +124,4 @@ public class CodemirrorEditor extends Composite {
 	public void addSubmitListener(SubmitListener listener) {
 		listeners.add(listener);
 	}
-
 }

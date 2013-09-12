@@ -50,6 +50,10 @@ public enum Mode {
 	 */
 	GAS("architecture"),
 	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_GLSL.gwt.xml to make this work
+	 */
+	GLSL("text/x-glsl"),
+	/**
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_GO.gwt.xml to make this work
 	 */
 	GO("text/x-go"),

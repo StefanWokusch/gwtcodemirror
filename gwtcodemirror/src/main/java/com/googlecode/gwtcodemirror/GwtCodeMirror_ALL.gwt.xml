@@ -12,6 +12,7 @@
 	<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror_ECL'/>
 	<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror_ERLANG'/>
 	<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror_GAS'/>
+	<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror_GLSL'/>
 	<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror_GO'/>
 	<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror_GROOVY'/>
 	<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror_HAML'/>
