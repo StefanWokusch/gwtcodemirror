@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.googlecode.gwtcodemirror</groupId>
 	<artifactId>gwtcodemirror</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>GwtCodeMirror</name>
 	<description>Codemirror for GWT</description>
 	<url>http://code.google.com/p/gwtcodemirror/</url>
@@ -25,7 +25,7 @@
 		<connection>scm:git:https://code.google.com/p/gwtcodemirror/</connection>
 		<developerConnection>scm:git:https://code.google.com/p/gwtcodemirror/</developerConnection>
 		<url>https://code.google.com/p/gwtcodemirror/</url>
-		<tag>gwtcodemirror-0.0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<distributionManagement>
