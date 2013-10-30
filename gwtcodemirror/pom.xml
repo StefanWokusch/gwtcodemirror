@@ -5,6 +5,9 @@
 	<groupId>com.googlecode.gwtcodemirror</groupId>
 	<artifactId>gwtcodemirror</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>GwtCodeMirror</name>
+	<description>Codemirror for GWT</description>
+	<url>http://code.google.com/p/gwtcodemirror/</url>
 
 	<licenses>
 		<license>
