@@ -24,7 +24,8 @@ public class EnumGenerator {
 
 		// Search for Modes
 		for (File m : modes.listFiles())
-			addScript(modes, m);
+			if (m.isDirectory())
+				addScript(modes, m);
 
 		// Add all_Configs File
 		{
@@ -68,36 +69,26 @@ public class EnumGenerator {
 		if (indexFile.exists() && jsFile.exists()) {
 
 			String indexContent = readFile(indexFile);
-			if (!indexContent.contains("<code>")) {
-				System.err.println("Ignoring " + modeFolder.getName() + " because no Codeblock in indexfile");
-				return;
-			}
-			int modeIndexOf = indexContent.indexOf("<code>");
-			String mode = indexContent.substring(modeIndexOf + 6, indexContent.indexOf("</code>", modeIndexOf));
-			if (mode.contains("{")) {
-				modeIndexOf = indexContent.indexOf("<code>", modeIndexOf + 1);
-				mode = indexContent.substring(modeIndexOf + 6, indexContent.indexOf("</code>", modeIndexOf));
-			}
-			if (mode.startsWith("<a")) {
-				mode = mode.substring(mode.indexOf(">") + 1);
-				mode = mode.substring(0, mode.indexOf("<"));
-			}
+
+			String mode = getByCodeBlock(indexContent);
+			if (mode == null)
+				mode = getByModeString(indexContent);
+			if (mode == null)
+				System.err.println("Ignoring " + modeFolder.getName() + " because no Codeblock or other Hints for the language found in indexfile");
 
 			String name = modeFolder.getAbsolutePath().substring(root.getAbsolutePath().length() + 1);
 			name = name.replace("\\", "/").replace("/", "_").toUpperCase();
 
 			System.out.println("Adding " + name + " :: " + mode);
 
-			String gwtXml = "<?xml version='1.0' encoding='UTF-8'?>\n<module>"
-					+ "\n\t<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror'/>" //
+			String gwtXml = "<?xml version='1.0' encoding='UTF-8'?>\n<module>" + "\n\t<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror'/>" //
 					+ "\n\t<script src='codemirror/mode" //
 					+ jsFile.getAbsolutePath().substring(root.getAbsolutePath().length()).replace("\\", "/") //
 					+ "' />\n</module>";
 
 			gwtXmlAll.append("\n\t<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror_" + name + "'/>");
 
-			modeEnum.append("\n\t/**\n\t * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_" + name
-					+ ".gwt.xml to make this work\n\t */");
+			modeEnum.append("\n\t/**\n\t * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_" + name + ".gwt.xml to make this work\n\t */");
 			modeEnum.append("\n\t" + name + "(\"" + mode + "\"),");
 			File gwtXmlFile = new File(gwtXmlParent, "GwtCodeMirror_" + name + ".gwt.xml");
 			gwtXmlFile.createNewFile();
@@ -106,6 +97,54 @@ public class EnumGenerator {
 			out.flush();
 			out.close();
 		}
+	}
+
+	private static String getByModeString(String content) {
+		String ret = getByModeString(content, '"');
+		if (ret == null)
+			ret = getByModeString(content, '\'');
+		return ret;
+	}
+
+	private static String getByModeString(String content, char stringmarker) {
+		String ret = getByModeString(content, stringmarker, "mode: ");
+		if (ret == null)
+			ret = getByModeString(content, stringmarker, "mode: {name: ");
+		if (ret == null)
+			ret = getByModeString(content, stringmarker, "mode:\r\n        {name: ");
+		return ret;
+	}
+
+	private static String getByModeString(String content, char stringmarker, String prefixWithoutStringMarker) {
+		String prefix = prefixWithoutStringMarker + stringmarker;
+		String toFind = prefix;// + "text/";
+		int index = content.indexOf(toFind);
+		if (index >= 0) {
+			int end = content.indexOf(stringmarker, index + toFind.length());
+			if (end >= 0) {
+				String found = content.substring(index + prefix.length(), end);
+				System.err.println("Needed fallback and found " + found);
+				return found;
+			}
+		}
+		return null;
+	}
+
+	private static String getByCodeBlock(String content) {
+		if (!content.contains("<code>")) {
+			return null;
+		}
+		int modeIndexOf = content.indexOf("<code>");
+		String mode = content.substring(modeIndexOf + 6, content.indexOf("</code>", modeIndexOf));
+		if (mode.contains("{")) {
+			modeIndexOf = content.indexOf("<code>", modeIndexOf + 1);
+			mode = content.substring(modeIndexOf + 6, content.indexOf("</code>", modeIndexOf));
+		}
+		if (mode.startsWith("<a")) {
+			mode = mode.substring(mode.indexOf(">") + 1);
+			mode = mode.substring(0, mode.indexOf("<"));
+		}
+		return mode;
 	}
 
 	private static String readFile(File file) throws IOException {

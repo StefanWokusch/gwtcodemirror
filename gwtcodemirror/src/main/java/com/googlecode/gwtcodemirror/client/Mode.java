@@ -18,6 +18,10 @@ public enum Mode {
 	 */
 	CLOJURE("text/x-clojure"),
 	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_COBOL.gwt.xml to make this work
+	 */
+	COBOL("text/x-cobol"),
+	/**
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_COFFEESCRIPT.gwt.xml to make this work
 	 */
 	COFFEESCRIPT("text/x-coffeescript"),
@@ -38,17 +42,37 @@ public enum Mode {
 	 */
 	DIFF("text/x-diff"),
 	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_DTD.gwt.xml to make this work
+	 */
+	DTD("application/xml-dtd"),
+	/**
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_ECL.gwt.xml to make this work
 	 */
 	ECL("text/x-ecl"),
+	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_EIFFEL.gwt.xml to make this work
+	 */
+	EIFFEL("text/x-eiffel"),
 	/**
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_ERLANG.gwt.xml to make this work
 	 */
 	ERLANG("text/x-erlang"),
 	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_FORTRAN.gwt.xml to make this work
+	 */
+	FORTRAN("text/x-Fortran"),
+	/**
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_GAS.gwt.xml to make this work
 	 */
 	GAS("architecture"),
+	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_GFM.gwt.xml to make this work
+	 */
+	GFM("gfm"),
+	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_GHERKIN.gwt.xml to make this work
+	 */
+	GHERKIN("text/x-feature"),
 	/**
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_GLSL.gwt.xml to make this work
 	 */
@@ -94,6 +118,14 @@ public enum Mode {
 	 */
 	JAVASCRIPT("json"),
 	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_JINJA2.gwt.xml to make this work
+	 */
+	JINJA2("jinja2"),
+	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_JULIA.gwt.xml to make this work
+	 */
+	JULIA("text/x-julia"),
+	/**
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_LESS.gwt.xml to make this work
 	 */
 	LESS("text/x-less"),
@@ -126,9 +158,17 @@ public enum Mode {
 	 */
 	OCAML("text/x-ocaml"),
 	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_OCTAVE.gwt.xml to make this work
+	 */
+	OCTAVE("text/x-octave"),
+	/**
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_PASCAL.gwt.xml to make this work
 	 */
 	PASCAL("text/x-pascal"),
+	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_PEGJS.gwt.xml to make this work
+	 */
+	PEGJS("pegjs"),
 	/**
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_PERL.gwt.xml to make this work
 	 */
@@ -225,6 +265,14 @@ public enum Mode {
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_TIDDLYWIKI.gwt.xml to make this work
 	 */
 	TIDDLYWIKI("text/x-tiddlywiki"),
+	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_TIKI.gwt.xml to make this work
+	 */
+	TIKI("tiki"),
+	/**
+	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_TOML.gwt.xml to make this work
+	 */
+	TOML("text/x-toml"),
 	/**
 	 * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_TURTLE.gwt.xml to make this work
 	 */
