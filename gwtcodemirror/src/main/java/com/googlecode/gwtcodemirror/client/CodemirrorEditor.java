@@ -26,7 +26,7 @@ public class CodemirrorEditor extends Composite {
 		// widget.add(area);
 		SimplePanel widget = new SimplePanel(area);
 		cm = initCodemirror(area.getElement());
-		assert (cm != null) : "CodeMirror editor is null";
+		assert cm != null : "CodeMirror editor is null";
 
 		initWidget(widget);
 		addDomHandler(new KeyDownHandler() {
