@@ -11,7 +11,7 @@ public class EnumGenerator {
 	private static File gwtXmlParent = new File("src/main/java/com/googlecode/gwtcodemirror/");
 	private static File modeEnumFile = new File("src/main/java/com/googlecode/gwtcodemirror/client/Mode.java");
 
-	private static StringBuilder gwtXmlAll = new StringBuilder("<?xml version='1.0' encoding='UTF-8'?>\n<module>");
+	// private static StringBuilder gwtXmlAll = new StringBuilder("<?xml version='1.0' encoding='UTF-8'?>\n<module>");
 	private static StringBuilder modeEnum = new StringBuilder();
 
 	public static void main(String[] args) throws IOException {
@@ -29,13 +29,13 @@ public class EnumGenerator {
 
 		// Add all_Configs File
 		{
-			gwtXmlAll.append("\n</module>");
-			File gwtXmlFile = new File(gwtXmlParent, "GwtCodeMirror_ALL.gwt.xml");
-			gwtXmlFile.createNewFile();
-			PrintWriter out = new PrintWriter(gwtXmlFile);
-			out.print(gwtXmlAll.toString());
-			out.flush();
-			out.close();
+			// gwtXmlAll.append("\n</module>");
+			// File gwtXmlFile = new File(gwtXmlParent, "GwtCodeMirror_ALL.gwt.xml");
+			// gwtXmlFile.createNewFile();
+			// PrintWriter out = new PrintWriter(gwtXmlFile);
+			// out.print(gwtXmlAll.toString());
+			// out.flush();
+			// out.close();
 		}
 		// Add Enum
 		{
@@ -46,12 +46,18 @@ public class EnumGenerator {
 			out.append(modeEnum.toString());
 			out.append("\n\t;");
 			out.append("\n\tprivate final String mimeType;");
-			out.append("\n\tMode(String mimeType) {");
+			out.append("\n\tprivate final String jsPath;");
+			out.append("\n\tMode(String mimeType, String jsPath) {");
 			out.append("\n\t\tthis.mimeType = mimeType;");
+			out.append("\n\t\tthis.jsPath = jsPath;");
 			out.append("\n\t}");
 			out.append("\n\tpublic String getMimeType() {");
 			out.append("\n\t\treturn mimeType;");
 			out.append("\n\t}");
+			out.append("\n\tpublic String getJsPath() {");
+			out.append("\n\t\t	return jsPath;");
+			out.append("\n\t}");
+
 			out.append("\n}");
 			out.flush();
 			out.close();
@@ -81,21 +87,22 @@ public class EnumGenerator {
 
 			System.out.println("Adding " + name + " :: " + mode);
 
-			String gwtXml = "<?xml version='1.0' encoding='UTF-8'?>\n<module>" + "\n\t<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror'/>" //
-					+ "\n\t<script src='codemirror/mode" //
-					+ jsFile.getAbsolutePath().substring(root.getAbsolutePath().length()).replace("\\", "/") //
-					+ "' />\n</module>";
-
-			gwtXmlAll.append("\n\t<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror_" + name + "'/>");
+			String path = "codemirror/mode" + jsFile.getAbsolutePath().substring(root.getAbsolutePath().length()).replace("\\", "/");
+			// String gwtXml = "<?xml version='1.0' encoding='UTF-8'?>\n<module>" + "\n\t<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror'/>" //
+			// + "\n\t<script src='codemirror/mode" //
+			// + path //
+			// + "' />\n</module>";
+			//
+			// gwtXmlAll.append("\n\t<inherits name='com.googlecode.gwtcodemirror.GwtCodeMirror_" + name + "'/>");
 
 			modeEnum.append("\n\t/**\n\t * You need to inherit com.googlecode.gwtcodemirror.GwtCodeMirror_" + name + ".gwt.xml to make this work\n\t */");
-			modeEnum.append("\n\t" + name + "(\"" + mode + "\"),");
-			File gwtXmlFile = new File(gwtXmlParent, "GwtCodeMirror_" + name + ".gwt.xml");
-			gwtXmlFile.createNewFile();
-			PrintWriter out = new PrintWriter(gwtXmlFile);
-			out.print(gwtXml);
-			out.flush();
-			out.close();
+			modeEnum.append("\n\t" + name + "(\"" + mode + "\", \"" + path + "\"),");
+			// File gwtXmlFile = new File(gwtXmlParent, "GwtCodeMirror_" + name + ".gwt.xml");
+			// gwtXmlFile.createNewFile();
+			// PrintWriter out = new PrintWriter(gwtXmlFile);
+			// out.print(gwtXml);
+			// out.flush();
+			// out.close();
 		}
 	}
 
@@ -149,15 +156,19 @@ public class EnumGenerator {
 
 	private static String readFile(File file) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
-		String line = null;
-		StringBuilder stringBuilder = new StringBuilder();
-		String ls = System.getProperty("line.separator");
+		try {
+			String line = null;
+			StringBuilder stringBuilder = new StringBuilder();
+			String ls = System.getProperty("line.separator");
 
-		while ((line = reader.readLine()) != null) {
-			stringBuilder.append(line);
-			stringBuilder.append(ls);
+			while ((line = reader.readLine()) != null) {
+				stringBuilder.append(line);
+				stringBuilder.append(ls);
+			}
+
+			return stringBuilder.toString();
+		} finally {
+			reader.close();
 		}
-
-		return stringBuilder.toString();
 	}
 }
