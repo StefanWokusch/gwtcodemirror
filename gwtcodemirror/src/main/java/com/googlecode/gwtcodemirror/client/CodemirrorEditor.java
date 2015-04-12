@@ -102,8 +102,22 @@ public class CodemirrorEditor extends Composite {
 		return getValue(cm);
 	}
 
+	/**
+	 * sets the mimetype by the mode
+	 * 
+	 * @param mode
+	 */
 	public void setMode(Mode mode) {
-		setMode(cm, mode.getMimeType());
+		setMimeType(mode.getMimeType());
+	}
+
+	/**
+	 * if setMode doesn't work, or u need more controll, use this
+	 * 
+	 * @param mimeType
+	 */
+	public void setMimeType(String mimeType) {
+		setMode(cm, mimeType);
 	}
 
 	private boolean enabled = true;
